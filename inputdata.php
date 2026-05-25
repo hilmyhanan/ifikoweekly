@@ -18,21 +18,21 @@
         <table border="1" cellspacing="0" cellpadding="10px">
             <tr>
                 <td> 
-                    <a href="index.html">Home</a>
+                    <a href="index.php">Home</a>
                 </td>
                 <td>
-                    <a href="profil.html">Profil</a>
+                    <a href="profil.php">Profil</a>
                 </td>
                 <td>
-                    <a href="contact.html">Kontak Saya</a>
+                    <a href="contact.php">Kontak Saya</a>
                 </td>
                 <td>
-                    <a href="mahasiswa.html">Data Mahasiswa</a>
+                    <a href="mahasiswa.php">Data Mahasiswa</a>
                 </td>
             </tr>
         </table>
         <h2>Input Data Mahasiswa</h2>
-        <form action="mahasiswa.html" method="POST"   >
+        <form action="mahasiswa.php" method="POST"   >
             <table border="0" cellspacing="5px">
                 <tr>
                     <td><label for="nama">Nama</label></td>
