@@ -13,23 +13,17 @@
 
     // 2. Logika ketika form di-submit
     if (isset($_POST["submit"])) {
-        $nama = $_POST["nama"];
-        $nim = $_POST["nim"];
-        $jurusan = $_POST["jurusan"];
-        $email = $_POST["email"];
-        $no_hp = $_POST["no_hp"];
-        $foto = $_POST["foto"];
 
-        // 3. Melengkapi mysqli_query dengan perintah SQL (Contoh: INSERT data baru)
-        $query = "INSERT INTO mahasiswa (nama, nim, jurusan, email, no_hp, foto) 
-                  VALUES ('$nama', '$nim', '$jurusan', '$email', '$no_hp', '$foto')";
-        
-        $hasil = mysqli_query($koneksi, $query);
-
-        if ($hasil) {
-            echo "<script>alert('Data berhasil disimpan!');</script>";
+        if (tambahdata($_POST) > 0)  {
+            echo "<script>
+                    alert('Data berhasil disimpan!');
+                    document.location.href = 'mahasiswa.php';
+                  </script>";
         } else {
-            echo "<script>alert('Data gagal disimpan!');</script>";
+            echo "<script>
+                    alert('Data gagal disimpan!');
+                    document.location.href = 'mahasiswa.php';
+                  </script>";
         }
         
     
