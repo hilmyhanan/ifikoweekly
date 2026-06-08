@@ -1,32 +1,38 @@
 <?php
-    $koneksi = mysqli_connect("localhost", "root", "", "ifikoweekly");
+    // Pastikan file fungsi.php mendefinisikan koneksi database ke variabel $koneksi
+    require 'fungsi.php';
 
-    // 1. Inisialisasi variabel kosong untuk mode "Tambah Data"
+    // 1. Inisialisasi variabel kosong untuk mencegah error 'Undefined Variable' saat halaman pertama dimuat
     $id = "";
     $nama = "";
     $nim = "";
     $jurusan = "";
     $email = "";
-    $telepon = "";
+    $no_hp = "";
     $foto = "";
-    // Note: Variabel lain seperti password, tanggal_lahir, dll bisa ditambahkan di sini 
-    // jika sudah ada kolomnya di database tabel 'mahasiswa'.
 
-    // 2. Cek apakah ada parameter 'id' di URL (Mode "Edit Data")
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
-        $query = "SELECT * FROM mahasiswa WHERE id = '$id'";
-        $result = mysqli_query($koneksi, $query);
+    // 2. Logika ketika form di-submit
+    if (isset($_POST["submit"])) {
+        $nama = $_POST["nama"];
+        $nim = $_POST["nim"];
+        $jurusan = $_POST["jurusan"];
+        $email = $_POST["email"];
+        $no_hp = $_POST["no_hp"];
+        $foto = $_POST["foto"];
+
+        // 3. Melengkapi mysqli_query dengan perintah SQL (Contoh: INSERT data baru)
+        $query = "INSERT INTO mahasiswa (nama, nim, jurusan, email, no_hp, foto) 
+                  VALUES ('$nama', '$nim', '$jurusan', '$email', '$no_hp', '$foto')";
         
-        if ($data = mysqli_fetch_assoc($result)) {
-            // Isi variabel dengan data dari database Laragon/MySQL
-            $nama = $data['nama'];
-            $nim = $data['nim'];
-            $jurusan = $data['jurusan'];
-            $email = $data['email'];
-            $telepon = $data['no_hp']; // Menyesuaikan dengan nama kolom di database sebelumnya
-            $foto = $data['foto'];
+        $hasil = mysqli_query($koneksi, $query);
+
+        if ($hasil) {
+            echo "<script>alert('Data berhasil disimpan!');</script>";
+        } else {
+            echo "<script>alert('Data gagal disimpan!');</script>";
         }
+        
+    
     }
 ?>
 
@@ -36,13 +42,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title><?php echo ($id != "") ? "Edit" : "Input"; ?> Data Mahasiswa | WEB INFORMATIKA</title>
+    <title>Data Mahasiswa | WEB INFORMATIKA</title>
 </head>
 <body>
 
     <div class="container">
-        
-        <h1><?php echo ($id != "") ? "Edit" : "Input"; ?> Data Mahasiswa</h1>
+        <h1>Data Mahasiswa</h1>
         <hr>
         
         <table border="1" cellspacing="0" cellpadding="10px">
@@ -56,8 +61,7 @@
         
         <h2>Form Mahasiswa</h2>
         
-        <form action="proses_data.php" method="POST" enctype="multipart/form-data">
-            
+        <form action="" method="post">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
 
             <table border="0" cellspacing="5px">
@@ -72,7 +76,7 @@
                     <td><input type="number" name="nim" id="nim" value="<?php echo $nim; ?>" required/></td>
                 </tr>
                 <tr>
-                    <td><label for="Program Studi">Program Studi</label></td>
+                    <td><label for="prodi">Program Studi</label></td>
                     <td>:</td>
                     <td><input type="text" name="jurusan" id="prodi" value="<?php echo $jurusan; ?>"></td>
                 </tr>
@@ -84,17 +88,15 @@
                 <tr>
                     <td><label for="nohp">No HP</label></td>
                     <td>:</td>
-                    <td><input type="number" name="no_hp" id="nohp" value="<?php echo $telepon; ?>" required/></td>   
+                    <td><input type="number" name="no_hp" id="nohp" value="<?php echo $no_hp; ?>" required/></td>   
                 </tr>
-                
                 <tr>
                     <td><label for="foto">Foto</label></td>
                     <td>:</td>
                     <td>
-                        <input type="text" name="foto" id="foto"/><br>
+                        <input type="text" name="foto" id="foto" value="<?php echo $foto; ?>"/><br>
                     </td>
                 </tr>
-                
             </table>
             
             <input type="submit" name="submit" value="<?php echo ($id != "") ? "Simpan Perubahan" : "Kirim Data"; ?>"/>
