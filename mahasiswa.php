@@ -2,13 +2,9 @@
    
     require 'fungsi.php';
 
-    $query = "SELECT * FROM mahasiswa";
-    $result = mysqli_query($koneksi, $query);
+    $qmahasiswa = "SELECT * FROM mahasiswa"; //karena query k table mahasiswa
 
-    if (!$result) {
-        echo "Query error: " . mysqli_error($koneksi);
-        exit;
-    }
+    $mahasiswas= tampildata($qmahasiswa); //menghasilkan data dalam wadah 
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +47,8 @@
         </tr>
 
         <?php
-            while ($mhs = mysqli_fetch_assoc($result)) {
+            foreach($mahasiswas as $mhs)
+                {
         ?>
         <tr>
             <td align="center"><?php echo $mhs['id']; ?></td>
