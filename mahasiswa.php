@@ -1,5 +1,6 @@
 <?php
-    $koneksi = mysqli_connect("localhost", "root", "", "ifikoweekly");
+   
+    require 'fungsi.php';
 
     $query = "SELECT * FROM mahasiswa";
     $result = mysqli_query($koneksi, $query);
