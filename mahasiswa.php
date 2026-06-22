@@ -61,7 +61,7 @@
                 <img src="<?php echo $mhs['foto']; ?>" width="70px" alt="Foto <?php echo $mhs['nama']; ?>"/>
             </td>
             <td align="center">
-                <a href="edit.php?id=<?php echo $mhs['id']; ?>">Edit</a> | 
+                <a href="editdata.php?id=<?php echo $mhs['id']; ?>">Edit</a> | 
                 <a href="hapusdata.php?id=<?php echo $mhs['id']; ?>" onclick="return confirm('Yakin ingin menghapus data <?php echo $mhs['nama']; ?>?');">Hapus</a>
         </tr>
         <?php

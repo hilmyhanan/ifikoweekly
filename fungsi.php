@@ -42,4 +42,24 @@
             mysqli_query($koneksi, "DELETE FROM mahasiswa WHERE id = $id");
             return mysqli_affected_rows($koneksi);
         }
+
+        function editdata($data, $id) 
+        {
+        global $koneksi;
+
+        $nama = htmlspecialchars($_POST["nama"]);
+        $nim = htmlspecialchars($_POST["nim"]);
+        $jurusan = htmlspecialchars($_POST["jurusan"]);
+        $email = htmlspecialchars($_POST["email"]);
+        $no_hp = htmlspecialchars($_POST["no_hp"]);
+        $foto = htmlspecialchars($_POST["foto"]);
+
+        $query = "UPDATE mahasiswa SET nama = '$nama', nim = '$nim', jurusan = '$jurusan', email = '$email', no_hp = '$no_hp', foto = '$foto' WHERE id = $id";
+
+         $hasil = mysqli_query($koneksi, $query);
+
+         return mysqli_affected_rows($koneksi); 
+
+        }
+
 ?>
