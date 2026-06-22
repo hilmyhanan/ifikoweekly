@@ -14,7 +14,8 @@
     // 2. Logika ketika form di-submit
     if (isset($_POST["submit"])) {
 
-        if (tambahdata($_POST) > 0)  {
+        // PERBAIKAN: Hanya gunakan $_FILES, jangan $_FILES["foto"]
+        if (tambahdata($_POST, $_FILES) > 0)  {
             echo "<script>
                     alert('Data berhasil disimpan!');
                     document.location.href = 'mahasiswa.php';
@@ -25,8 +26,6 @@
                     document.location.href = 'mahasiswa.php';
                   </script>";
         }
-        
-    
     }
 ?>
 
@@ -55,7 +54,7 @@
         
         <h2>Form Mahasiswa</h2>
         
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
 
             <table border="0" cellspacing="5px">
@@ -88,7 +87,7 @@
                     <td><label for="foto">Foto</label></td>
                     <td>:</td>
                     <td>
-                        <input type="text" name="foto" id="foto" value="<?php echo $foto; ?>"/><br>
+                    <input type="file" name="foto" id="foto" accept="image/*" required/><br>
                     </td>
                 </tr>
             </table>

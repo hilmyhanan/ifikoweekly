@@ -1,5 +1,4 @@
 <?php
-    // Pastikan file fungsi.php mendefinisikan koneksi database ke variabel $koneksi
     require 'fungsi.php';
 
     $id = isset($_GET["id"]) ? $_GET["id"] : null;
@@ -13,26 +12,26 @@
     }
 
     $query = "SELECT * FROM mahasiswa WHERE id = $id";
-
     $mhs = tampildata($query)[0];
-
 
     // 2. Logika ketika form di-submit
     if (isset($_POST["submit"])) {
 
-        if (editdata($_POST, $id) > 0)  {
+        // PERBAIKAN: Panggil editdata(), bukan tambahdata()
+        // Kirimkan $_POST, $_FILES, dan $id
+        if (editdata($_POST, $_FILES, $id) > 0)  {
             echo "<script>
                     alert('Data berhasil diubah!');
                     document.location.href = 'mahasiswa.php';
                   </script>";
         } else {
+            // Bisa jadi 0 jika tidak ada data yang diubah (user klik simpan tanpa merubah isi form)
+            // Jadi tidak perlu langsung dibilang gagal jika affected_rows bernilai 0
             echo "<script>
-                    alert('Data gagal diubah!');
+                    alert('Data gagal diubah atau tidak ada perubahan.');
                     document.location.href = 'mahasiswa.php';
                   </script>";
         }
-        
-    
     }
 ?>
 
@@ -61,8 +60,10 @@
         
         <h2>Ubah Data Mahasiswa</h2>
         
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
+            
+            <input type="hidden" name="fotoLama" value="<?php echo $mhs['foto']; ?>">
 
             <table border="0" cellspacing="5px">
                 <tr>
@@ -94,12 +95,14 @@
                     <td><label for="foto">Foto</label></td>
                     <td>:</td>
                     <td>
-                        <input type="text" name="foto" id="foto" value="<?php echo $mhs['foto']; ?>"/><br>
+                        <img src="assets/images/<?php echo $mhs['foto']; ?>" width="50"><br><br>
+                        
+                        <input type="file" name="foto" id="foto" accept="image/*"/><br>
                     </td>
                 </tr>
             </table>
             
-            <input type="submit" name="submit" value="<?php echo ($id != "") ? "Simpan Perubahan" : "Edit Data"; ?>"/>
+            <input type="submit" name="submit" value="Simpan Perubahan"/>
         </form>
     </div>
 </body>

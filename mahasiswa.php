@@ -58,7 +58,7 @@
             <td align="center"><?php echo $mhs['email']; ?></td>
             <td align="center"><?php echo $mhs['no_hp']; ?></td>
             <td align="center">
-                <img src="<?php echo $mhs['foto']; ?>" width="70px" alt="Foto <?php echo $mhs['nama']; ?>"/>
+                <img src="assets/images/<?php echo $mhs['foto']; ?>" alt="Foto Mahasiswa" width="50">
             </td>
             <td align="center">
                 <a href="editdata.php?id=<?php echo $mhs['id']; ?>">Edit</a> | 
