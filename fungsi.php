@@ -34,4 +34,12 @@
          return mysqli_affected_rows($koneksi); 
 
         }
+
+
+        function hapusdata($id) 
+        {
+            global $koneksi;
+            mysqli_query($koneksi, "DELETE FROM mahasiswa WHERE id = $id");
+            return mysqli_affected_rows($koneksi);
+        }
 ?>

@@ -62,8 +62,7 @@
             </td>
             <td align="center">
                 <a href="edit.php?id=<?php echo $mhs['id']; ?>">Edit</a> | 
-                <a href="hapus.php?id=<?php echo $mhs['id']; ?>" onclick="return confirm('Yakin ingin menghapus data <?php echo $mhs['nama']; ?>?');">Hapus</a>
-            </td>
+                <a href="hapusdata.php?id=<?php echo $mhs['id']; ?>" onclick="return confirm('Yakin ingin menghapus data <?php echo $mhs['nama']; ?>?');">Hapus</a>
         </tr>
         <?php
             }
